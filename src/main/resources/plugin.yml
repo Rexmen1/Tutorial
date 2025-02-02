@@ -1,0 +1,19 @@
+name: Tutorial
+version: '1.0-SNAPSHOT'
+main: com.tutorial.Tutorial
+api-version: '1.20'
+softdepend: [WorldGuard, PlaceholderAPI, Vault]
+authors: [Rex]
+description: A quest-based tutorial system for new players
+commands:
+  quest:
+    description: Main command for the tutorial quest system
+    usage: /<command> [reload]
+    aliases: [tutorial]
+permissions:
+  tutorial.user:
+    description: Allows access to basic tutorial commands
+    default: true
+  tutorial.admin:
+    description: Allows access to admin commands like reload
+    default: op

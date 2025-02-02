@@ -1,0 +1,5 @@
+players:
+  # Example player data format:
+  # uuid:
+  #   current-quest: 1
+  #   completed-quests: []

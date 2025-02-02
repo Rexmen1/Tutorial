@@ -1,0 +1,40 @@
+quests:
+  1:
+    name: "Getting Started"
+    type: "command"
+    command: "/rtp"
+    gui-icon: "COMPASS"
+    message: "Use /rtp to teleport to the main world!"
+    reward:
+      - "money 500"
+      - "give %player% steak 5"
+
+  2:
+    name: "Exploring Spawn"
+    type: "region"
+    region: "spawn_area"
+    world: "world"
+    gui-icon: "MAP"
+    message: "Walk into the spawn area to learn more!"
+    reward:
+      - "give %player% iron_pickaxe 1"
+
+  3:
+    name: "Defeat Your First Mob"
+    type: "kill"
+    mob: "zombie"
+    amount: 5
+    gui-icon: "IRON_SWORD"
+    message: "Kill 5 Zombies to complete this quest!"
+    reward:
+      - "give %player% diamond 1"
+
+  4:
+    name: "Storage Basics"
+    type: "placeholder"
+    placeholder: "%storage_filled%"
+    target-value: "25"
+    gui-icon: "CHEST"
+    message: "Fill your virtual storage to 25% capacity!"
+    reward:
+      - "give %player% gold_ingot 3"

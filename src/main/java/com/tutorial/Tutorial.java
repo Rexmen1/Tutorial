@@ -13,6 +13,11 @@ public class Tutorial extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
+		// Check for WorldGuard
+		if (getServer().getPluginManager().getPlugin("WorldGuard") == null) {
+			getLogger().warning("WorldGuard not found! Region quests will not work properly.");
+		}
+		
 		// Save default configs
 		saveDefaultConfig();
 		saveResource("quests.yml", false);

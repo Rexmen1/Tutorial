@@ -10,17 +10,17 @@ quests:
       - "give %player% steak 5"
 
   2:
-    name: "Exploring Spawn"
-    type: "region"
-    region: "spawn_area"
-    world: "world"
-    gui-icon: "MAP"
-    message: "Walk into the spawn area to learn more!"
+    name: "Mining Progress"
+    type: "placeholder"
+    placeholder: "%statistic_mine_block%"
+    target-value: "25"
+    gui-icon: "DIAMOND_PICKAXE"
+    message: "Mine 25 blocks to complete this quest!"
     reward:
       - "give %player% iron_pickaxe 1"
 
   3:
-    name: "Defeat Your First Mob"
+    name: "Zombie Hunter"
     type: "kill"
     mob: "zombie"
     amount: 5
@@ -30,11 +30,21 @@ quests:
       - "give %player% diamond 1"
 
   4:
-    name: "Storage Basics"
+    name: "Walking Distance"
     type: "placeholder"
-    placeholder: "%storage_filled%"
-    target-value: "25"
-    gui-icon: "CHEST"
-    message: "Fill your virtual storage to 25% capacity!"
+    placeholder: "%statistic_walk_one_cm%"
+    target-value: "1000"
+    gui-icon: "LEATHER_BOOTS"
+    message: "Walk 10 blocks to complete this quest!"
     reward:
       - "give %player% gold_ingot 3"
+
+  5:
+    name: "Visit Spawn"
+    type: "region"
+    region: "spawn_area"
+    world: "world"
+    gui-icon: "MAP"
+    message: "Visit the spawn area!"
+    reward:
+      - "give %player% diamond 2"

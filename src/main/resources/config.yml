@@ -1,8 +1,11 @@
 settings:
+  debug: false
   bossbar:
     enabled: true
     color: "BLUE"
     fade_time: 5
+    style: SOLID
+    show-progress: true
   gui:
     title: "Tutorial Quests"
     size: 27

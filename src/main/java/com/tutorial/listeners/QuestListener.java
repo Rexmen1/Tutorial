@@ -179,4 +179,32 @@ public class QuestListener implements Listener {
 			playerBossBars.remove(player.getUniqueId());
 		}
 	}
+
+	public void refreshAllBossBars() {
+		// Clean up existing boss bars
+		for (BossBar bar : playerBossBars.values()) {
+			bar.removeAll();
+		}
+		playerBossBars.clear();
+		
+		// Refresh for all online players
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			updateBossBar(player);
+		}
+		
+		if (debug) {
+			plugin.getLogger().info("Refreshed all boss bars");
+		}
+	}
+
+	public void cleanupBossBars() {
+		for (BossBar bar : playerBossBars.values()) {
+			bar.removeAll();
+		}
+		playerBossBars.clear();
+	}
+
+	public void onDisable() {
+		cleanupBossBars();
+	}
 }

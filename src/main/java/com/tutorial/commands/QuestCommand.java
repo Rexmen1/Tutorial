@@ -2,6 +2,7 @@ package com.tutorial.commands;
 
 import com.tutorial.Tutorial;
 import com.tutorial.gui.QuestGUI;
+import com.tutorial.listeners.QuestListener;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,9 +37,25 @@ public class QuestCommand implements CommandExecutor {
 				return true;
 			}
 
-			plugin.reloadConfig();
-			plugin.getQuestManager().loadQuests();
-			player.sendMessage(ChatColor.GREEN + "Tutorial configuration reloaded!");
+			// Clean up boss bars before reload
+			QuestListener questListener = plugin.getQuestListener();
+			if (questListener != null) {
+				questListener.cleanupBossBars();
+			}
+
+			// Reload all configurations
+			plugin.reloadAllConfigs();
+
+			// Refresh boss bars with new config
+			if (questListener != null) {
+				questListener.refreshAllBossBars();
+			}
+
+			player.sendMessage(ChatColor.GREEN + "Configuration and quests have been reloaded!");
+			if (plugin.getConfig().getBoolean("settings.debug", false)) {
+				player.sendMessage(ChatColor.GRAY + "Debug mode is " + 
+					(plugin.getConfig().getBoolean("settings.debug", false) ? "enabled" : "disabled"));
+			}
 			return true;
 		}
 

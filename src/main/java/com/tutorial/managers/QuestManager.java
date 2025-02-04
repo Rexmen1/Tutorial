@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class QuestManager {
@@ -114,4 +116,25 @@ public class QuestManager {
 	public Collection<Quest> getAllQuests() {
 		return quests.values();
 	}
+
+	public void reloadQuests() {
+		quests.clear();
+		File questFile = new File(plugin.getDataFolder(), "quests.yml");
+		questConfig = YamlConfiguration.loadConfiguration(questFile);
+
+		// Load defaults from JAR if file is missing or empty
+		try (InputStreamReader reader = new InputStreamReader(plugin.getResource("quests.yml"), StandardCharsets.UTF_8)) {
+			YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(reader);
+			questConfig.setDefaults(defaultConfig);
+			if (!questFile.exists() || questConfig.getConfigurationSection("quests") == null) {
+				questConfig.options().copyDefaults(true);
+			}
+		} catch (Exception e) {
+			plugin.getLogger().warning("Could not load default quests configuration: " + e.getMessage());
+		}
+
+		questConfig.options().copyDefaults(true); // Ensure defaults are copied
+		loadQuests();
+	}
+
 }

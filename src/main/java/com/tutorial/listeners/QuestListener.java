@@ -8,6 +8,7 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -163,7 +164,7 @@ public class QuestListener implements Listener {
 
 		if (currentQuest != null) {
 			updateQuestProgress(player, currentQuest);
-			bossBar.setTitle(currentQuest.getMessage());
+			bossBar.setTitle(ChatColor.translateAlternateColorCodes('&', currentQuest.getMessage()));
 			if (plugin.getConfig().getBoolean("settings.bossbar.show-progress", true)) {
 				bossBar.setProgress(currentQuest.getProgress());
 			}

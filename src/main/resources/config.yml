@@ -10,6 +10,19 @@ settings:
     title: "Tutorial Quests"
     size: 27
     show-progress: true
+    item_name_format: "&6%quest_name%"
+    item_lore_format:
+      - "&7Type: &e%quest_type%"
+      - "&7Description: &f%quest_message%"
+      - ""
+      - "&7Requirements:"
+      - "&7• &fCommand: &e%quest_command%" # Only shown for command quests
+      - "&7• &fRegion: &e%quest_region%" # Only shown for region quests
+      - "&7• &fKill: &e%quest_amount%x %quest_mob%" # Only shown for kill quests
+      - "&7• &fGoal: &e%quest_placeholder% = %quest_target%" # Only shown for placeholder quests
+      - ""
+      - "&7Rewards:"
+      - "%quest_rewards%"
   worldguard-support: true
   messages:
     prefix: "&8[&bTutorial&8] &7"

@@ -39,31 +39,44 @@ public class QuestGUI {
 		ItemStack item = new ItemStack(material);
 		ItemMeta meta = item.getItemMeta();
 		
-		meta.setDisplayName(ChatColor.GOLD + quest.getName());
+		// Set name using config format
+		String nameFormat = plugin.getConfig().getString("settings.gui.item_name_format", "&6%quest_name%");
+		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', 
+			nameFormat.replace("%quest_name%", quest.getName())));
 		
 		List<String> lore = new ArrayList<>();
-		lore.add(ChatColor.GRAY + "Type: " + ChatColor.YELLOW + quest.getType());
-		lore.add(ChatColor.GRAY + "Description: " + ChatColor.WHITE + quest.getMessage());
+		List<String> loreFormat = plugin.getConfig().getStringList("settings.gui.item_lore_format");
 		
-		switch (quest.getType().toLowerCase()) {
-			case "command":
-				lore.add(ChatColor.GRAY + "Command: " + ChatColor.YELLOW + quest.getCommand());
-				break;
-			case "region":
-				lore.add(ChatColor.GRAY + "Region: " + ChatColor.YELLOW + quest.getRegion());
-				break;
-			case "kill":
-				lore.add(ChatColor.GRAY + "Target: " + ChatColor.YELLOW + quest.getAmount() + "x " + quest.getMobType());
-				break;
-			case "placeholder":
-				lore.add(ChatColor.GRAY + "Goal: " + ChatColor.YELLOW + quest.getPlaceholder() + " = " + quest.getTargetValue());
-				break;
-		}
-		
-		lore.add("");
-		lore.add(ChatColor.GRAY + "Rewards:");
-		for (String reward : quest.getRewards()) {
-			lore.add(ChatColor.YELLOW + "• " + reward);
+		for (String line : loreFormat) {
+			String formattedLine = line
+				.replace("%quest_type%", quest.getType())
+				.replace("%quest_message%", quest.getMessage());
+				
+			// Handle rewards separately
+			if (line.contains("%quest_rewards%")) {
+				for (String reward : quest.getRewards()) {
+					lore.add(ChatColor.translateAlternateColorCodes('&', 
+						line.replace("%quest_rewards%", "• " + reward)));
+				}
+				continue;
+			}
+			
+			// Add quest-specific information
+			if (quest.getType().equalsIgnoreCase("command")) {
+				formattedLine = formattedLine.replace("%quest_command%", quest.getCommand());
+			} else if (quest.getType().equalsIgnoreCase("region")) {
+				formattedLine = formattedLine.replace("%quest_region%", quest.getRegion());
+			} else if (quest.getType().equalsIgnoreCase("kill")) {
+				formattedLine = formattedLine
+					.replace("%quest_amount%", String.valueOf(quest.getAmount()))
+					.replace("%quest_mob%", quest.getMobType());
+			} else if (quest.getType().equalsIgnoreCase("placeholder")) {
+				formattedLine = formattedLine
+					.replace("%quest_placeholder%", quest.getPlaceholder())
+					.replace("%quest_target%", quest.getTargetValue());
+			}
+			
+			lore.add(ChatColor.translateAlternateColorCodes('&', formattedLine));
 		}
 		
 		meta.setLore(lore);

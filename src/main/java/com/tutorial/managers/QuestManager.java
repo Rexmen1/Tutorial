@@ -42,7 +42,9 @@ public class QuestManager {
 				questId,
 				questConfig.getString(path + "name"),
 				questConfig.getString(path + "type"),
-				questConfig.getString(path + "message"),
+				questConfig.getString(path + "message", ""), // For backward compatibility
+				questConfig.getString(path + "bossbar"),
+				questConfig.getStringList(path + "description"),
 				questConfig.getString(path + "gui-icon"),
 				questConfig.getStringList(path + "reward")
 			);

@@ -50,7 +50,7 @@ public class QuestGUI {
 		for (String line : loreFormat) {
 			String formattedLine = line
 				.replace("%quest_type%", quest.getType())
-				.replace("%quest_message%", quest.getMessage());
+				.replace("%quest_message%", String.join("\n", quest.getDescription()));
 				
 			// Handle rewards separately
 			if (line.contains("%quest_rewards%")) {

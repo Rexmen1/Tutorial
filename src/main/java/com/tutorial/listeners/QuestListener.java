@@ -164,7 +164,9 @@ public class QuestListener implements Listener {
 
 		if (currentQuest != null) {
 			updateQuestProgress(player, currentQuest);
-			bossBar.setTitle(ChatColor.translateAlternateColorCodes('&', currentQuest.getMessage()));
+			String bossbarMessage = ChatColor.translateAlternateColorCodes('&', currentQuest.getBossbar());
+			bossBar.setTitle(bossbarMessage);
+
 			if (plugin.getConfig().getBoolean("settings.bossbar.show-progress", true)) {
 				bossBar.setProgress(currentQuest.getProgress());
 			}

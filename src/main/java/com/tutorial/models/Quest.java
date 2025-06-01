@@ -7,6 +7,8 @@ public class Quest {
 	private final String name;
 	private final String type;
 	private final String message;
+	private final String bossbar; // New field
+	private final List<String> description; // New field
 	private final String guiIcon;
 	private final List<String> rewards;
 	
@@ -18,13 +20,15 @@ public class Quest {
 	private int amount;
 	private String placeholder;
 	private String targetValue;
-	private double progress; // New field for progress tracking
+	private double progress; // Field for progress tracking
 	
-	public Quest(int id, String name, String type, String message, String guiIcon, List<String> rewards) {
+	public Quest(int id, String name, String type, String message, String bossbar, List<String> description, String guiIcon, List<String> rewards) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.message = message;
+		this.bossbar = bossbar;
+		this.description = description;
 		this.guiIcon = guiIcon;
 		this.rewards = rewards;
 		this.progress = 0.0;
@@ -51,6 +55,8 @@ public class Quest {
 	public String getMessage() { return message; }
 	public String getGuiIcon() { return guiIcon; }
 	public List<String> getRewards() { return rewards; }
+	public String getBossbar() { return bossbar; }
+	public List<String> getDescription() { return description; }
 	public String getCommand() { return command; }
 	public void setCommand(String command) { this.command = command; }
 	public String getRegion() { return region; }

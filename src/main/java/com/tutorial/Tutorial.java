@@ -1,6 +1,7 @@
 package com.tutorial;
 
 import com.tutorial.commands.QuestCommand;
+import com.tutorial.listeners.GUIListener;
 import com.tutorial.listeners.QuestListener;
 import com.tutorial.managers.QuestManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,40 +15,41 @@ public class Tutorial extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		
+
 		// Check for WorldGuard
 		if (getServer().getPluginManager().getPlugin("WorldGuard") == null) {
 			getLogger().warning("WorldGuard not found! Region quests will not work properly.");
 		}
-		
+
 		// Only save default configs if they don't exist
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
 		}
-		
+
 		File configFile = new File(getDataFolder(), "config.yml");
 		File questsFile = new File(getDataFolder(), "quests.yml");
-		
+
 		if (!configFile.exists()) {
 			saveResource("config.yml", false);
 		}
 		if (!questsFile.exists()) {
 			saveResource("quests.yml", false);
 		}
-		
+
 		// Load configs
 		reloadConfig();
-		
+
 		// Initialize managers
 		this.questManager = new QuestManager(this);
-		
 		// Register commands
-		getCommand("quest").setExecutor(new QuestCommand(this));
-		
+		QuestCommand questCommand = new QuestCommand(this);
+		getCommand("quest").setExecutor(questCommand);
+		getCommand("quest").setTabCompleter(questCommand);
 		// Register listeners
 		this.questListener = new QuestListener(this);
 		getServer().getPluginManager().registerEvents(questListener, this);
-		
+		getServer().getPluginManager().registerEvents(new GUIListener(this), this);
+
 		getLogger().info("Tutorial plugin has been enabled!");
 	}
 
@@ -57,12 +59,12 @@ public class Tutorial extends JavaPlugin {
 		if (questListener != null) {
 			questListener.cleanupBossBars();
 		}
-		
+
 		// Save any pending data
 		if (questManager != null) {
 			questManager.saveAllData();
 		}
-		
+
 		getLogger().info("Tutorial plugin has been disabled!");
 	}
 
@@ -82,7 +84,7 @@ public class Tutorial extends JavaPlugin {
 	public void reloadAllConfigs() {
 		// Reload main config
 		reloadConfig();
-		
+
 		// Reload quests.yml
 		File questFile = new File(getDataFolder(), "quests.yml");
 		if (questFile.exists()) {

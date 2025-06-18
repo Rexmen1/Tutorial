@@ -7,9 +7,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class QuestCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class QuestCommand implements CommandExecutor, TabCompleter {
 	private final Tutorial plugin;
 
 	public QuestCommand(Tutorial plugin) {
@@ -19,7 +23,9 @@ public class QuestCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "This command can only be used by players!");
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+					plugin.getConfig().getString("settings.messages.player-only",
+							"&cThis command can only be used by players!")));
 			return true;
 		}
 
@@ -33,7 +39,9 @@ public class QuestCommand implements CommandExecutor {
 
 		if (args[0].equalsIgnoreCase("reload")) {
 			if (!player.hasPermission("tutorial.admin")) {
-				player.sendMessage(ChatColor.RED + "You don't have permission to use this command!");
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						plugin.getConfig().getString("settings.messages.no-permission",
+								"&cYou don't have permission to use this command!")));
 				return true;
 			}
 
@@ -51,14 +59,31 @@ public class QuestCommand implements CommandExecutor {
 				questListener.refreshAllBossBars();
 			}
 
-			player.sendMessage(ChatColor.GREEN + "Configuration and quests have been reloaded!");
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+					plugin.getConfig().getString("settings.messages.reload-success",
+							"&aConfiguration and quests have been reloaded!")));
 			if (plugin.getConfig().getBoolean("settings.debug", false)) {
-				player.sendMessage(ChatColor.GRAY + "Debug mode is " + 
-					(plugin.getConfig().getBoolean("settings.debug", false) ? "enabled" : "disabled"));
+				String debugStatus = plugin.getConfig().getBoolean("settings.debug", false) ? "enabled" : "disabled";
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						plugin.getConfig().getString("settings.messages.debug-status", "&7Debug mode is %status%")
+								.replace("%status%", debugStatus)));
 			}
 			return true;
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		List<String> completions = new ArrayList<>();
+
+		if (args.length == 1) {
+			if (sender.hasPermission("tutorial.admin")) {
+				completions.add("reload");
+			}
+		}
+
+		return completions;
 	}
 }

@@ -7,25 +7,43 @@ settings:
     style: SOLID
     show-progress: true
   gui:
-    title: "Tutorial Quests"
+    title: "&6Tutorial Quests"
     size: 27
     show-progress: true
     item_name_format: "&6%quest_name%"
     item_lore_format:
       - "&7Type: &e%quest_type%"
-      - "&7Description: &f%quest_message%"
+      - "&7Description:"
+      - "&f%quest_message%"
       - ""
       - "&7Requirements:"
       - "&7• &fCommand: &e%quest_command%" # Only shown for command quests
       - "&7• &fRegion: &e%quest_region%" # Only shown for region quests
       - "&7• &fKill: &e%quest_amount%x %quest_mob%" # Only shown for kill quests
+      - "&7• &fBreak: &e%quest_amount%x %quest_block%" # Only shown for break quests
+      - "&7• &fPlace: &e%quest_amount%x %quest_block%" # Only shown for place quests
+      - "&7• &fCraft: &e%quest_amount%x %quest_block%" # Only shown for craft quests
+      - "&7• &fEat: &e%quest_amount%x %quest_block%" # Only shown for eat quests
+      - "&7• &fChat: &e%quest_message%" # Only shown for chat quests
       - "&7• &fGoal: &e%quest_placeholder% = %quest_target%" # Only shown for placeholder quests
       - ""
       - "&7Rewards:"
-      - "%quest_rewards%"
+      - "&a%quest_rewards%"
+    quest_status:
+      completed: "&a✓ Completed"
+      current: "&e➤ Current Quest"
+      locked: "&c✗ Locked"
   worldguard-support: true
+  performance:
+    movement_check_distance: 2.0
+    auto_save_interval: 300 # seconds
+    cache_quest_data: true
   messages:
     prefix: "&8[&bTutorial&8] &7"
     quest-complete: "&aQuest completed! &7Received rewards:"
     quest-progress: "&7Progress: &b%progress%&7/&b%total%"
     quest-locked: "&cComplete previous quests first!"
+    no-permission: "&cYou don't have permission to use this command!"
+    player-only: "&cThis command can only be used by players!"
+    reload-success: "&aConfiguration and quests have been reloaded!"
+    debug-status: "&7Debug mode is %status%"

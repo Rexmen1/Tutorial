@@ -1,50 +1,147 @@
 quests:
   1:
-    name: "Getting Started"
-    type: "command"
-    command: "/rtp"
-    gui-icon: "COMPASS"
-    message: "Use /rtp to teleport to the main world!"
+    name: "Basic Quest 1/20"
+    type: "break"
+    block: "oak_log"
+    amount: 3
+    gui-icon: "OAK_LOG"
+    message: "Welcome to RexKraft! Break 3 oak logs to get started!"
+    bossbar: "&6🌳&7- Break 3 oak logs (%progress%)"
+    description:
+      - "Welcome to RexKraft!"
+      - "Break 3 oak logs to get started on your adventure"
+    reward:
+      - "money 125"
+      - "give %player% oak_log 13"
+  2:
+    name: "Basic Quest 2/20"
+    type: "craft"
+    block: "crafting_table"
+    amount: 1
+    gui-icon: "CRAFTING_TABLE"
+    message: "Next it is time to start crafting!"
+    bossbar: "&6🔨&7- Craft 1 crafting table (%progress%)"
+    description:
+      - "Time to start crafting!"
+      - "Craft a crafting table using your oak logs"
+    reward:
+      - "money 250"
+      - "give %player% oak_door 1"
+      - "give %player% glass_block 6"
+  3:
+    name: "Basic Quest 3/20"
+    type: "place"
+    block: "oak_planks"
+    amount: 16
+    gui-icon: "OAK_PLANKS"
+    message: "Time to build your first house!"
+    bossbar: "&6🔑&7- Place 16 oak planks (%progress%)"
+    description:
+      - "Time to build your first house!"
+      - "Place 16 oak planks to start building"
+    reward:
+      - "money 375"
+      - "give %player% oak_door 1"
+      - "give %player% glass_block 6"
+      - "give %player% pink_wool 3"
+  4:
+    name: "Basic Quest 4/20"
+    type: "craft"
+    block: "pink_bed"
+    amount: 1
+    gui-icon: "PINK_BED"
+    message: "Every house needs a bed!"
+    bossbar: "&6📦&7- Craft a bed using the wool provided! (%progress%)"
+    description:
+      - "Every house needs a bed!"
+      - "Use the pink wool to craft a bed"
     reward:
       - "money 500"
-      - "give %player% steak 5"
-
-  2:
-    name: "Mining Progress"
-    type: "placeholder"
-    placeholder: "%statistic_mine_block%"
-    target-value: "25"
-    gui-icon: "DIAMOND_PICKAXE"
-    message: "Mine 25 blocks to complete this quest!"
+      - "give %player% coal 4"
+  5:
+    name: "Basic Quest 5/20"
+    type: "craft"
+    block: "torch"
+    amount: 4
+    gui-icon: "TORCH"
+    message: "Lets light up this house!"
+    bossbar: "&6⭐&7- Craft 4 torches (%progress%)"
+    description:
+      - "Let's light up this house!"
+      - "Craft 4 torches using coal and sticks"
     reward:
-      - "give %player% iron_pickaxe 1"
-
-  3:
-    name: "Zombie Hunter"
+      - "money 625"
+      - "give %player% chest 2"
+      - "give %player% pink_carpet 12"
+  6:
+    name: "Basic Quest 6/20"
+    type: "kill"
+    mob: "pig"
+    amount: 4
+    gui-icon: "PORKCHOP"
+    message: "Time for dinner!"
+    bossbar: "&6💀&7- Kill 4 pigs (%progress%)"
+    description:
+      - "Time for dinner!"
+      - "Hunt 4 pigs for food"
+    reward:
+      - "money 750"
+      - "give %player% smoker 1"
+      - "give %player% coal 1"
+  7:
+    name: "Basic Quest 7/20"
+    type: "eat"
+    block: "cooked_porkchop"
+    amount: 1
+    gui-icon: "COOKED_PORKCHOP"
+    message: "Delicious!"
+    bossbar: "&6❤️&7- Eat 1 cooked porkchop (%progress%)"
+    description:
+      - "Delicious!"
+      - "Cook and eat some porkchop"
+    reward:
+      - "money 875"
+      - "give %player% stone_pickaxe 1"
+      - "give %player% stone_axe 1"
+      - "give %player% stone_shovel 1"
+  8:
+    name: "Basic Quest 8/20"
+    type: "command"
+    command: "/jobs browse"
+    amount: 1
+    gui-icon: "PAPER"
+    bossbar: "&6📜&7- Use /jobs browse (%progress%)"
+    description:
+      - "Join a job to earn money!"
+      - "Type '/jobs browse' in chat"
+    reward:
+      - "money 1000"
+      - "give %player% experience_bottle 5"
+  9:
+    name: "Basic Quest 9/20"
     type: "kill"
     mob: "zombie"
     amount: 5
     gui-icon: "IRON_SWORD"
-    message: "Kill 5 Zombies to complete this quest!"
+    message: "Kill 5 zombies to upgrade your sword!"
+    bossbar: "&6💀&7- Kill 5 Zombies (%progress%)"
+    description:
+      - "Time to fight some monsters!"
+      - "Kill 5 zombies to prove your combat skills"
     reward:
-      - "give %player% diamond 1"
-
-  4:
-    name: "Walking Distance"
-    type: "placeholder"
-    placeholder: "%statistic_walk_one_cm%"
-    target-value: "1000"
-    gui-icon: "LEATHER_BOOTS"
-    message: "Walk 10 blocks to complete this quest!"
+      - "money 1125"
+      - "give %player% iron_sword 1"
+  10:
+    name: "Basic Quest 10/20"
+    type: "break"
+    block: "iron_ore"
+    amount: 16
+    gui-icon: "IRON_ORE"
+    message: "Time to get some Iron!"
+    bossbar: "&6⛏️&7- Break 16 Iron ore (%progress%)"
+    description:
+      - "Time to get some iron!"
+      - "Mine 16 iron ore to advance your tools"
     reward:
-      - "give %player% gold_ingot 3"
-
-  5:
-    name: "Visit Spawn"
-    type: "region"
-    region: "spawn_area"
-    world: "world"
-    gui-icon: "MAP"
-    message: "Visit the spawn area!"
-    reward:
-      - "give %player% diamond 2"
+      - "money 1250"
+      - "give %player% enchanted_book{Enchantments:[{id:efficiency,lvl:4}]} 1"
